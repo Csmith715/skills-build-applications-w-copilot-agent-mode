@@ -3,6 +3,16 @@ import { connectDatabase } from './config/database.js';
 import { Activity, LeaderboardEntry, Team, User, Workout } from './models/index.js';
 const app = express();
 app.use(express.json());
+app.use((_req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    if (_req.method === 'OPTIONS') {
+        res.sendStatus(204);
+        return;
+    }
+    next();
+});
 const port = Number(process.env.PORT || 8000);
 const host = process.env.HOST || '0.0.0.0';
 const codespaceName = process.env.CODESPACE_NAME;
