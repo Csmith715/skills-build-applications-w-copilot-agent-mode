@@ -26,6 +26,10 @@ function formatCell(value) {
 }
 
 function Users() {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
+  const apiUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/users/`
+    : 'http://127.0.0.1:8000/api/users/';
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,7 +42,7 @@ function Users() {
       setError('');
 
       try {
-        const response = await fetch(getApiUrl('users'));
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);

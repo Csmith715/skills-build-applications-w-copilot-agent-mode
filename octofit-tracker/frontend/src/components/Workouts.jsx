@@ -26,6 +26,10 @@ function formatCell(value) {
 }
 
 function Workouts() {
+  const codespaceName = import.meta.env.VITE_CODESPACE_NAME?.trim();
+  const apiUrl = codespaceName
+    ? `https://${codespaceName}-8000.app.github.dev/api/workouts/`
+    : 'http://127.0.0.1:8000/api/workouts/';
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -38,7 +42,7 @@ function Workouts() {
       setError('');
 
       try {
-        const response = await fetch(getApiUrl('workouts'));
+        const response = await fetch(apiUrl);
 
         if (!response.ok) {
           throw new Error(`Request failed with status ${response.status}`);
