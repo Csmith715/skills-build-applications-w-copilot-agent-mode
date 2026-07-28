@@ -10,7 +10,7 @@ const host = process.env.HOST || '0.0.0.0';
 const codespaceName = process.env.CODESPACE_NAME;
 const apiBaseUrl = codespaceName
   ? `https://${codespaceName}-8000.app.github.dev`
-  : process.env.API_URL || `http://127.0.0.1:${port}`;
+  : process.env.API_URL || `http://localhost:${port}`;
 
 const registerResourceRoutes = (basePath: string, model: any) => {
   const normalizedPath = basePath.replace(/\/$/, '');
